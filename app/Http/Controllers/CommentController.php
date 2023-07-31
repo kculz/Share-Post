@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return JsonResponse
      */
     public function index()
     {
-        //
+        return new JsonResponse([
+            "data" => "Kudzai"
+        ]);
     }
 
     /**
@@ -21,7 +25,9 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        return new JsonResponse([
+            "data" => "Kudzai"
+        ]);
     }
 
     /**
@@ -29,7 +35,9 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return new JsonResponse([
+            "data" => "Kudzai"
+        ]);
     }
 
     /**
@@ -37,7 +45,9 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        return new JsonResponse([
+            "data" => "Kudzai"
+        ]);
     }
 
     /**
@@ -45,6 +55,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        return new JsonResponse([
+            "data" => "Kudzai"
+        ]);
     }
 }

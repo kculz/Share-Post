@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,35 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/users', function(Request $request ){
-    return new Illuminate\Http\JsonResponse([
-        'data'=> 'kudzai'
-    ]);
-});
+Route::prefix('v1')->group(function(){
 
-Route::get('/users/{user}', function(\App\Models\User $user){
-    return new Illuminate\Http\JsonResponse([
-        'data'=> $user
-    ]);
-});
+    //iterate through the v1 folder
 
-Route::post('/users', function(){
-    return new Illuminate\Http\JsonResponse([
-        'data'=> 'posted'
-    ]);
-});
+    $dirIterator = new RecursiveDirectoryIterator(__DIR__ . '/api/v1');
+    $it = new RecursiveIteratorIterator($dirIterator);
 
-
-Route::patch('/users/{user}', function(\App\Models\User $user){
-    return new Illuminate\Http\JsonResponse([
-        'data'=> 'updated'
-    ]);
-});
-
-Route::delete('/users/{user}', function(\App\Models\User $user){
-    return new Illuminate\Http\JsonResponse([
-        'data'=> 'deleted'
-    ]);
+    while( $it -> valid()){
+        if(!$it -> isDot() && $it -> isFile() && $it -> isReadable() && $it -> current()->getExtension() === 'php'){
+            require $it -> key();
+        }
+        $it -> next();
+    }
 });
 
 

@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request;
 
-class PostController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * 
      * @return JsonResponse
      */
     public function index()
     {
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => "kudzai"
         ]);
     }
 
@@ -30,46 +27,46 @@ class PostController extends Controller
     public function store(Request $request)
     {
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => "store"
         ]);
     }
 
     /**
      * Display the specified resource.
      * @param Request
-     * @param Post
      * @return JsonResponse
      */
-    public function show(Post $post)
+    public function show(User $user)
     {
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => $user
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      * @param Request
-     * @param Post
+     * @param User
      * @return JsonResponse
+     * 
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, User $user)
     {
-        return new JsonResponse([
-            "data" => "Kudzai"
-        ]);
+       return new JsonResponse([
+        "data" => "updated"
+       ]);
     }
 
     /**
      * Remove the specified resource from storage.
      * @param Request
-     * @param Post
+     * @param User
      * @return JsonResponse
      */
-    public function destroy(Post $post)
+    public function destroy(User $user)
     {
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => "deleted"
         ]);
     }
 }
