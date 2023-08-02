@@ -3,8 +3,7 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')
-        ->name('posts.')
+Route::name('posts.')
         ->group(function(){
             Route::get('/posts', [PostController::class, 'index'])->name('index');
 

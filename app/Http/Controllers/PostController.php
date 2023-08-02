@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request;
 
@@ -17,33 +18,37 @@ class PostController extends Controller
      */
     public function index()
     {
+        $post = Post::query()->get();
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => $post
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param Request
+     * @param StorePostRequest
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
+        $created = Post::query()->create([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]);
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" =>$created
         ]);
     }
 
     /**
      * Display the specified resource.
-     * @param Request
      * @param Post
      * @return JsonResponse
      */
     public function show(Post $post)
     {
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => $post
         ]);
     }
 
@@ -53,10 +58,24 @@ class PostController extends Controller
      * @param Post
      * @return JsonResponse
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
+        // $post->update($request->only(['title', 'body']));
+        $updated = $post->update([
+            'title' => $request->title ?? $post->title,
+            'body' => $request->body ?? $post->body,
+        ]);
+
+        if(!$updated){
+            return new JsonResponse([
+                'errors' => [
+                    'Failed to update the model'
+                ]
+                ],400);
+        }
+         
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => $post
         ]);
     }
 
@@ -68,8 +87,17 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $deleted = $post->forceDelete();
+
+        if(!$deleted){
+            return new JsonResponse([
+                "errors" => [
+                    "Could not delete resourse"
+                ]
+                ],400);
+        }
         return new JsonResponse([
-            "data" => "Kudzai"
+            "data" => "success"
         ]);
     }
 }

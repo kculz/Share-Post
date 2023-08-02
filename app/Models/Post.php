@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-   protected $cast =[
-    "body" => "array"
-   ];
+    protected $fillable = [
+        'title',
+        'body'
+    ];
+    protected $cast =[
+        "body" => "array"
+    ];
 
    public function comments(){
     return $this->hasMany(Comment::class, 'post_id');
