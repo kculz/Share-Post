@@ -28,12 +28,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $createdUser = User::query()->create([
-            'name' => $request->name,
-            'email' => $request->email
-        ]);
         return new JsonResponse([
-            "data" => $createdUser
+            "data" => "store"
         ]);
     }
 
